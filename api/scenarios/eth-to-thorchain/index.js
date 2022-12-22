@@ -47,9 +47,9 @@ async function approveTokens() {
 
 async function swapIn() {
     const quote = await fetchQuote();
-    const calldata = quote.calldata;
+    const calldata = quote.routes[0].calldata;
     console.log(calldata)
-    console.log(quote.contract)
+    console.log(quote.routes[0].contract)
 
     const tsAggregatorGenericAddress = '0xd31f7e39afecec4855fecc51b693f9a0cec49fd2';
     const tsAggregatorGenericContract = new web3.eth.Contract(aggregatorAbi, tsAggregatorGenericAddress);
