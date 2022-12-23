@@ -1,5 +1,5 @@
 const fetch = require('node-fetch')
-const { Client, getChainIds, getDefaultClientUrl } = require('@xchainjs/xchain-thorchain')
+const { Client } = require('@xchainjs/xchain-thorchain')
 const { Network } = require('@xchainjs/xchain-client')
 const { assetFromString, assetAmount, formatBaseAmount } = require('@xchainjs/xchain-util')
 
@@ -25,18 +25,17 @@ function fetchQuote() {
 let client;
  // Init TC client
  async function connect() {
-    const chainIds = await getChainIds(getDefaultClientUrl())
     client = new Client({
       network: Network.Mainnet,
       phrase,
-      chainIds
+      chainIds: 'thorchain-mainnet-v1'
     })
     return true
   }
 
   async function executeTxn() {
     const quote = await fetchQuote();
-    const calldata = quote.calldata;
+    const calldata = quote.routes[0].calldata;
 
     const fromAsset = assetFromString(quoteParams.sellAsset);
     const toAsset = assetFromString(quoteParams.buyAsset);
